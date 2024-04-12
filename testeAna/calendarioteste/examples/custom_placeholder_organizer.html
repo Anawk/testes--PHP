@@ -1,0 +1,82 @@
+<html>
+
+	<head>
+		<title>Normal Organizer Example</title>
+		<link href="../calendarorganizer.min.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<div id="calendarContainer"></div>
+		<div id="organizerContainer"></div>
+		<script src="../calendarorganizer.min.js"></script>
+		<script>
+			"use strict";
+
+			
+			function createDummyData() {
+				var date = new Date();
+				var data = {};
+
+				for (var i = 0; i < 10; i++) {
+					data[date.getFullYear() + i] = {};
+
+					for (var j = 0; j < 12; j++) {
+						data[date.getFullYear() + i][j + 1] = {};
+
+						for (var k = 0; k < Math.ceil(Math.random() * 10); k++) {
+							var l = Math.ceil(Math.random() * 28);
+
+							try {
+								data[date.getFullYear() + i][j + 1][l].push({
+									startTime: "10:00",
+									endTime: "12:00",
+									text: "Some Event Here"
+								});
+							} catch (e) {
+								data[date.getFullYear() + i][j + 1][l] = [];
+								data[date.getFullYear() + i][j + 1][l].push({
+									startTime: "10:00",
+									endTime: "12:00",
+									text: "Some Event Here"
+								});
+							}
+						}
+					}
+				}
+
+				return data;
+			}
+
+			
+			var data = createDummyData();
+
+			
+			var calendar = new Calendar("calendarContainer",
+				"small", 
+				[
+					"Wednesday", 
+					3 
+				], [
+					"#ffc107",
+					"#ffa000", 
+					"#ffffff", 
+					"#ffecb3" 
+				],
+				{
+					
+					placeholder: "<button style='width: calc(100% - 16px); background-color: #E6E6E6; border-radius: 6px; margin: 8px; border: none; padding: 12px 0px; cursor: pointer;'>Add New Event</button>",
+					indicator: true,
+					indicator_type: 0, 
+					indicator_pos: "top" 
+				}
+			);
+
+			
+			var organizer = new Organizer("organizerContainer", 
+				calendar, 
+				data 
+			);
+		</script>
+	</body>
+
+</html>
